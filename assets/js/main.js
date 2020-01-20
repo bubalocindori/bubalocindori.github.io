@@ -5,143 +5,147 @@
 */
 
 (function($) {
+  skel.breakpoints({
+    xlarge: "(max-width: 1680px)",
+    large: "(max-width: 1280px)",
+    medium: "(max-width: 980px)",
+    small: "(max-width: 736px)",
+    xsmall: "(max-width: 480px)"
+  });
 
-	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
-		medium:	'(max-width: 980px)',
-		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)'
-	});
+  $(function() {
+    var $window = $(window),
+      $body = $("body");
 
-	$(function() {
+    // Disable animations/transitions until the page has loaded.
+    $body.addClass("is-loading");
 
-		var	$window = $(window),
-			$body = $('body');
+    $window.on("load", function() {
+      window.setTimeout(function() {
+        $body.removeClass("is-loading");
+      }, 100);
+    });
 
-		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
+    // Fix: Placeholder polyfill.
+    $("form").placeholder();
 
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
-			});
+    // Prioritize "important" elements on medium.
+    skel.on("+medium -medium", function() {
+      $.prioritize(
+        ".important\\28 medium\\29",
+        skel.breakpoint("medium").active
+      );
+    });
 
-		// Fix: Placeholder polyfill.
-			$('form').placeholder();
+    // Menu.
+    $("#menu")
+      .append('<a href="#menu" class="close"></a>')
+      .appendTo($body)
+      .panel({
+        delay: 500,
+        hideOnClick: true,
+        hideOnSwipe: true,
+        resetScroll: true,
+        resetForms: true,
+        side: "right"
+      });
 
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
-				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
-				);
-			});
+    // Banner.
+    var $banner = $("#banner");
 
-		// Menu.
-			$('#menu')
-				.append('<a href="#menu" class="close"></a>')
-				.appendTo($body)
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					side: 'right'
-				});
+    if ($banner.length > 0) {
+      // IE fix.
+      if (skel.vars.IEVersion < 12) {
+        $window.on("resize", function() {
+          var wh = $window.height() * 0.6,
+            bh = $banner.height();
 
-		// Banner.
-			var $banner = $('#banner');
+          $banner.css("height", "auto");
 
-			if ($banner.length > 0) {
+          window.setTimeout(function() {
+            if (bh < wh) $banner.css("height", wh + "px");
+          }, 0);
+        });
 
-				// IE fix.
-					if (skel.vars.IEVersion < 12) {
+        $window.on("load", function() {
+          $window.triggerHandler("resize");
+        });
+      }
 
-						$window.on('resize', function() {
+      // Video check.
+      var video = $banner.data("video");
 
-							var wh = $window.height() * 0.60,
-								bh = $banner.height();
+      if (video)
+        $window.on("load.banner", function() {
+          // Disable banner load event (so it doesn't fire again).
+          $window.off("load.banner");
 
-							$banner.css('height', 'auto');
+          // Append video if supported.
+          if (
+            !skel.vars.mobile &&
+            !skel.breakpoint("large").active &&
+            skel.vars.IEVersion > 9
+          )
+            $banner.append(
+              '<video autoplay loop><source src="' +
+                video +
+                '.mp4" type="video/mp4" /><source src="' +
+                video +
+                '.webm" type="video/webm" /></video>'
+            );
+        });
 
-							window.setTimeout(function() {
+      // More button.
+      $banner.find(".more").addClass("scrolly");
+    }
 
-								if (bh < wh)
-									$banner.css('height', wh + 'px');
+    // Tabbed Boxes
 
-							}, 0);
+    $(".flex-tabs").each(function() {
+      var t = jQuery(this),
+        tab = t.find(".tab-list li a"),
+        tabs = t.find(".tab");
 
-						});
+      tab.click(function(e) {
+        var x = jQuery(this),
+          y = x.data("tab");
 
-						$window.on('load', function() {
-							$window.triggerHandler('resize');
-						});
+        // Set Classes on Tabs
+        tab.removeClass("active");
+        x.addClass("active");
 
-					}
+        // Show/Hide Tab Content
+        tabs.removeClass("active");
+        t.find("." + y).addClass("active");
 
-				// Video check.
-					var video = $banner.data('video');
+        e.preventDefault();
+      });
+    });
 
-					if (video)
-						$window.on('load.banner', function() {
+    // Scrolly.
+    if ($(".scrolly").length) {
+      var $height = $("#header").height();
 
-							// Disable banner load event (so it doesn't fire again).
-								$window.off('load.banner');
-
-							// Append video if supported.
-								if (!skel.vars.mobile
-								&&	!skel.breakpoint('large').active
-								&&	skel.vars.IEVersion > 9)
-									$banner.append('<video autoplay loop><source src="' + video + '.mp4" type="video/mp4" /><source src="' + video + '.webm" type="video/webm" /></video>');
-
-						});
-
-				// More button.
-					$banner.find('.more')
-						.addClass('scrolly');
-
-			}
-
-		// Tabbed Boxes
-
-			$('.flex-tabs').each( function() {
-
-				var t 		= jQuery(this),
-					tab 	= t.find('.tab-list li a'),
-					tabs 	= t.find('.tab');
-
-				tab.click(function(e) {
-
-					var x = jQuery(this),
-						y = x.data('tab');
-
-					// Set Classes on Tabs
-						tab.removeClass('active');
-						x.addClass('active');
-
-					// Show/Hide Tab Content
-						tabs.removeClass('active');
-						t.find('.' + y).addClass('active');
-
-					e.preventDefault();
-
-				});
-
-			});
-
-		// Scrolly.
-			if ( $( ".scrolly" ).length ) {
-
-				var $height = $('#header').height();
-
-				$('.scrolly').scrolly({
-					offset: $height
-				});
-			}
-
-	});
-
+      $(".scrolly").scrolly({
+        offset: $height
+      });
+    }
+  });
 })(jQuery);
+
+document.getElementById("pjesma1").onclick = function() {
+  var audio = document.getElementById("audio1");
+  if (audio.paused) audio.play();
+  else audio.pause();
+};
+
+document.getElementById("pjesma2").onclick = function() {
+  var audio = document.getElementById("audio2");
+  if (audio.paused) audio.play();
+  else audio.pause();
+};
+document.getElementById("pjesma3").onclick = function() {
+  var audio = document.getElementById("audio3");
+  if (audio.paused) audio.play();
+  else audio.pause();
+};
