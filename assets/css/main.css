@@ -3526,3 +3526,38 @@ body.is-loading #banner:before {
   background-color: #062038;
   color: #c1c7cd;
 }
+
+.rovovi {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal kolumnes that sits next to each other */
+.kolumne {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.kolumne img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responsive layout - makes a two kolumne-layout instead of four kolumnes */
+@media screen and (max-width: 800px) {
+  .kolumne {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two kolumnes stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .kolumne {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
