@@ -3480,7 +3480,8 @@ body.is-loading #banner:before {
 }
 
 .diskografija .inner {
-  margin-left: 14em;
+  margin-left: 20%;
+  margin-right: 20%;
   position: relative;
   z-index: 99;
   font-size: 1.1em;
@@ -3514,8 +3515,8 @@ body.is-loading #banner:before {
 }
 
 .biografija .inner {
-  margin-left: 14em;
-  margin-right: 14em;
+  margin-left: 20%;
+  margin-right: 20%;
   position: relative;
   z-index: 99;
   font-size: 1.2em;
