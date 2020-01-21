@@ -131,36 +131,36 @@
       });
     }
   });
-})(jQuery);
 
-// Custom JS audio play
-document.getElementById("pjesma1").onclick = function() {
-  var audio = document.getElementById("audio1");
-  if (audio.paused) {
-    audio.play();
-    document.getElementById("pjesma1").className = "icon fa-pause";
-  } else {
-    audio.pause();
-    document.getElementById("pjesma1").className = "icon fa-play";
-  }
-};
-document.getElementById("pjesma2").onclick = function() {
-  var audio = document.getElementById("audio2");
-  if (audio.paused) {
-    audio.play();
-    document.getElementById("pjesma2").className = "icon fa-pause";
-  } else {
-    audio.pause();
-    document.getElementById("pjesma2").className = "icon fa-play";
-  }
-};
-document.getElementById("pjesma3").onclick = function() {
-  var audio = document.getElementById("audio3");
-  if (audio.paused) {
-    audio.play();
-    document.getElementById("pjesma3").className = "icon fa-pause";
-  } else {
-    audio.pause();
-    document.getElementById("pjesma3").className = "icon fa-play";
-  }
-};
+  // Custom JS audio play
+  document.getElementById("pjesma1").onclick = function() {
+    var audio = document.getElementById("audio1");
+    if (audio.paused) {
+      audio.play();
+      document.getElementById("pjesma1").className = "icon fa-pause";
+    } else {
+      audio.pause();
+      document.getElementById("pjesma1").className = "icon fa-play";
+    }
+  };
+  document.getElementById("pjesma2").onclick = function() {
+    var audio = document.getElementById("audio2");
+    if (audio.paused) {
+      audio.play();
+      document.getElementById("pjesma2").className = "icon fa-pause";
+    } else {
+      audio.pause();
+      document.getElementById("pjesma2").className = "icon fa-play";
+    }
+  };
+  document.getElementById("pjesma3").onclick = function() {
+    var audio = document.getElementById("audio3");
+    if (audio.paused) {
+      audio.play();
+      document.getElementById("pjesma3").className = "icon fa-pause";
+    } else {
+      audio.pause();
+      document.getElementById("pjesma3").className = "icon fa-play";
+    }
+  };
+})(jQuery);
