@@ -3561,3 +3561,17 @@ body.is-loading #banner:before {
     max-width: 100%;
   }
 }
+/* Strikthrough text */
+.strikeout {
+  line-height: 1em;
+  position: relative;
+}
+.strikeout::after {
+  border-bottom: 0.125em solid #c1c7cd;
+  content: "";
+  left: 0;
+  margin-top: calc(0.125em / 2 * -1);
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
