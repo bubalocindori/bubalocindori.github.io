@@ -2106,7 +2106,7 @@ input[type="checkbox"]+label:before, input[type="radio"]+label:before {
 
 input[type="checkbox"]:checked+label:before, input[type="radio"]:checked+label:before {
   background-color: #062038;
-  border-color: #062038;
+  border-color: #062037;
   color: #ffffff;
 }
 
@@ -2695,7 +2695,7 @@ table.alt tbody tr td {
 
 .wrapper.style1 input[type="checkbox"]:checked+label:before, .wrapper.style1 input[type="radio"]:checked+label:before {
   background-color: #ffffff;
-  border-color: #ffffff;
+  border-color: #fffffd;
   color: #062038;
 }
 
@@ -2863,7 +2863,7 @@ table.alt tbody tr td {
 
 .wrapper.style2 input[type="checkbox"]:checked+label:before, .wrapper.style2 input[type="radio"]:checked+label:before {
   background-color: #062038;
-  border-color: #062038;
+  border-color: #062039;
   color: #ffffff;
 }
 
